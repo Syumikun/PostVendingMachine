@@ -1,0 +1,42 @@
+# << -- オーナー設定 -- >> #
+# オーナー("Discord#0000"等のユーザー名では無く18桁のIDです)
+OWNER: DEFAULT
+# BOTが起動した時にDMでお知らせする機能です。
+# (初期値"true",オン"true"/オフ"false")
+BOTSTART: true
+# 新しいバージョンが出た際にDMでお知らせするかの設定です。
+# (初期値"true",オン"true"/オフ"false")
+VERSIONUP: true
+# ユーザーにロールを付与・解除した際にDMでお知らせするかの設定です。
+# (初期値"true",オン"true"/オフ"false")
+USEROLL: true
+
+# << -- 重要な設定 -- >> #
+# Discordトークン
+TOKEN: DEFAULT
+# ボットのモード (ONL=オンライン,DW=退席,TL=取り込み中,OF=オフライン)
+MODE: ONL
+# ボットのゲームプレイ(「"文字" をプレイ中」と表示される"文字"の部分を決められます。)
+PLAY: DEFAULT
+# ボットの名前(コマンド返信の下部に表示されます。)
+NAME: DEFAULT
+# ボットのアイコンURL(コマンド返信の下部に表示されます。)
+ICON: DEFAULT
+
+# << -- ロール付与設定 -- >> #
+# 付与するロールの設定(詳しくはWikiを参照ください)
+data:
+ use: 2
+ 1:
+  message_id: 0000000000000000000
+  message_stamp: 💩
+  roll_id: 0000000000000000000
+ 2:
+  message_id: 0000000000000000000
+  message_stamp: unchi
+  roll_id: 0000000000000000000
+
+# << -- 利用規約 -- >> #
+# 利用規約に同意する場合は利用規約最下部にあるパスワードを打ってください。
+# 利用規約URL→
+consent: PASSWORD
