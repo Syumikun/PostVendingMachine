@@ -25,12 +25,12 @@ def end():
 
 
 #<<<-- 初期変数 -->>>#
-VERSION = '1.0.0'
-FILE_VERSION = '1.0.0.00'
+VERSION = '0.0.1'
+FILE_VERSION = '00.00.00.01'
 
 
 #<<<-- 起動処理 -->>>#
-print('# -*- coding: utf-8 -*- #\nProgramName:Post_Vending_Machine(PVM)\nFileVersion:1.0.0.00(Beta0.00)\nVersion:1.0.0\nCreate:SyumikunProject\n')
+print('# -*- coding: utf-8 -*- #\nProgramName:Post_Vending_Machine(PVM)\nFileVersion:00.00.00.01(Beta0.01)\nVersion:0.0.1\nCreate:SyumikunProject\n')
 print('[Info]システムファイル読み込み中')
 
 # -- インターネット確認  -- #
