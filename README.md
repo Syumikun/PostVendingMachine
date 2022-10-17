@@ -8,5 +8,5 @@ Discordでリアクションするとロールを付与するBotを運営でき�
 #### Discord.py 2.0.1
 #### PyYAML 6.0
 #### requests 2.28.1
-#### discord-py-slash-command 3.0.
+#### discord-py-slash-command 3.0.3
 ##### (注意) ライブラリー等のバージョンが最新ではない場合がございます。
