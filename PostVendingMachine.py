@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*- #
-# ProgramName: Post_Vending_Machine(PVM)
+# ProgramName: PostVendingMachine(PVM)
 # FileVersion: 00.00.00.01(Beta0.01)
 # Version:     0.0.1
 # Create:      SyumikunProject
@@ -30,7 +30,7 @@ FILE_VERSION = '00.00.00.01'
 
 
 #<<<-- 起動処理 -->>>#
-print('# -*- coding: utf-8 -*- #\nProgramName:Post_Vending_Machine(PVM)\nFileVersion:00.00.00.01(Beta0.01)\nVersion:0.0.1\nCreate:SyumikunProject\n')
+print('# -*- coding: utf-8 -*- #\nProgramName:PostVendingMachine(PVM)\nFileVersion:00.00.00.01(Beta0.01)\nVersion:0.0.1\nCreate:SyumikunProject\n')
 print('[Info]システムファイル読み込み中')
 
 # -- インターネット確認  -- #
@@ -171,7 +171,7 @@ async def on_ready():
     # DM起動お知らせ
     if BOTSTART:
         user=bot.get_user(OWNER)
-        embed = discord.Embed(title='< Bot起動通知 >',description=f'DiscordBot(Post_Vending_Machine)が起動したことをお知らせします。', color=0XFFFFE0)
+        embed = discord.Embed(title='< Bot起動通知 >',description=f'DiscordBot(PostVendingMachine)が起動したことをお知らせします。', color=0XFFFFE0)
         embed.add_field(name='起動したBOTの名前',value=f'```{BOTNAME}```')
         embed.add_field(name='起動したBOTのID',value=f'```{BOTID}```')
         embed.set_footer(text=NAME,icon_url=ICON)
