@@ -5,7 +5,7 @@ Discordでリアクションするとロールを付与するBotを運営でき�
 
 ## 環境
 #### Python 3.8.0
-#### Discord.py 2.0.1
+#### Discord.py 1.7.3
 #### PyYAML 6.0
 #### requests 2.28.1
 #### discord-py-slash-command 3.0.3
