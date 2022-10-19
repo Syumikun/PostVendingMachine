@@ -40,11 +40,12 @@ if ip == '127.0.0.1':
     print('[Error]インターネットに接続されていません。接続環境を再度ご確認の上再実行してみたください。')
     end()
 
-# -- システムファイル読み込み -- #
-# ファイル読み込み
+# -- 設定ファイルの読み込み  -- #
+# システムファイルがあるか確認
 if not os.path.isfile('setting.yml'):
+    # 無かったらファイルをダウンロード
     print('[Error]設定ファイル(setting.yml)がありません。\n作成します')
-    setting_file_url='https://syumikun.github.io/pvm/setting.yml'
+    setting_file_url='https://github.syumikun.ml/pvm/setting.yml'
     setting_file_name='setting.yml'
     setting_file_data = requests.get(setting_file_url).content
     with open(setting_file_name ,mode='wb') as f:
@@ -53,15 +54,10 @@ if not os.path.isfile('setting.yml'):
     end()
 else:
     print('[Info]設定ファイルを認識しました。')
+# システムファイルを読み込み
 with open('setting.yml', 'r', encoding='utf-8') as yml:
     setting_file = yaml.full_load(yml)
     yml.close
-# 利用規約確認
-if setting_file['consent'] != 'RoadRoller':
-    print('[Error]利用規約に同意していません。"setting.yml"の下の方を確認してください。')
-    end()
-else:
-    print('[Info]利用規約の同意を確認。')
 # オーナー認証
 OWNER = setting_file['OWNER']
 if OWNER == None or OWNER == 'DEFAULT':
@@ -101,7 +97,7 @@ if NAME == None or NAME == 'DEFAULT':
     NAME = 'Copyright(C)2022 SyumikunProject'
 ICON = setting_file['ICON']
 if ICON == None or ICON == 'DEFAULT':
-    ICON = 'https://syumikun.github.io/icon.png'
+    ICON = 'https://github.syumikun.ml/icon.png'
 # ロール設定
 print('[Info]ロール設定取得中')
 roll_number = int(setting_file['data']['use'])
@@ -121,7 +117,7 @@ print('[Info]設定ファイルの読み込みに成功しました。')
 # -- アップデート確認 -- #
 # 最新バージョン取得
 update_session = requests.Session()
-update_version = update_session.get('https://syumikun.github.io/pvm/version.json')
+update_version = update_session.get('https://github.syumikun.ml/pvm/version.json')
 UPDATE_VERSION = json.loads(update_version.text)['version']
 coercion = json.loads(update_version.text)['coercion']
 # バージョンの差を確認
@@ -131,20 +127,16 @@ if VERSION != UPDATE_VERSION:
     if VERSIONUP == True or coercion == True:
         version_ha = True
 
-# -- Botスタート -- #
+
+# -- Botの起動  -- #
 print('[Info]DiscordBotを起動します。\n')
-# インターネット接続確認
-ip = socket.gethostname()
-ip = socket.gethostbyname(ip)
-if ip == '127.0.0.1':
-    print('[Warning]インターネットに接続されていません。接続環境を再度ご確認の上再実行してみたください。')
-    end()
 # Discordの変数
 intents = discord.Intents.default()
 intents.members = True
 bot = discord.Client(intents=discord.Intents.all())
 slash_client = SlashCommand(bot, sync_commands=True)
-# 起動時
+
+# -- 起動したときの処理  -- #
 @bot.event
 async def on_ready():
     BOTNAME = bot.user
@@ -205,8 +197,6 @@ async def on_ready():
             embed.add_field(name='アップデートの詳細',value=f'```{UPDATE_EXPLANATION}```')
             embed.set_footer(text=NAME,icon_url=ICON)
             await user.send(embed=embed)
-
-# 起動をお知らせ
 print('\n<< -- BOT起動完了 -- >>\n')
 
 

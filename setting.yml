@@ -35,8 +35,3 @@ data:
   message_id: 0000000000000000000
   message_stamp: unchi
   roll_id: 0000000000000000000
-
-# << -- 利用規約 -- >> #
-# 利用規約に同意する場合は利用規約最下部にあるパスワードを打ってください。
-# 利用規約URL→
-consent: PASSWORD
