@@ -17,6 +17,7 @@ import requests
 from discord_slash import SlashCommand, SlashContext
 
 
+
 #<<<-- 終了 -->>>#
 def end():
     print('\n<<-- 10秒後にシステムを終了します。 -->>')
@@ -44,7 +45,7 @@ if ip == '127.0.0.1':
 # システムファイルがあるか確認
 if not os.path.isfile('setting.yml'):
     # 無かったらファイルをダウンロード
-    print('[Error]設定ファイル(setting.yml)がありません。\n作成します')
+    print('[Error]設定ファイル(setting.yml)がありません。\n[Info]作成します')
     setting_file_url='https://github.syumikun.ml/pvm/setting.yml'
     setting_file_name='setting.yml'
     setting_file_data = requests.get(setting_file_url).content
@@ -145,21 +146,21 @@ async def on_ready():
     if MODE == 'ONL':
         game = discord.Game(PLAY)
         await bot.change_presence(status=discord.Status.online, activity=game)
-        print('[Info]オンラインモードで起動中')
+        print('[Info]オンラインモードで起動中\n')
     # 初期設定 
     elif MODE == 'DW':
         game = discord.Game(PLAY)
         await bot.change_presence(status=discord.Status.idle, activity=game)
-        print('[Info]退席中モードで起動中')
+        print('[Info]退席中モードで起動中\n')
     # 開発モード
     elif MODE == 'TL':
         game = discord.Game(PLAY)
         await bot.change_presence(status=discord.Status.dnd, activity=game)
-        print('[Info]取り込み中モードで起動中')
+        print('[Info]取り込み中モードで起動中\n')
     # オフライン
     elif MODE == 'OF':
         await bot.change_presence(status=discord.Status.offline)
-        print('[Info]オフラインモードで起動中')
+        print('[Info]オフラインモードで起動中\n')
     # DM起動お知らせ
     if BOTSTART:
         user=bot.get_user(OWNER)
@@ -212,6 +213,8 @@ async def on_raw_reaction_add(data):
             if data.emoji.name == roll_stamp[roll_message_id_s2-1]:
                 role = guild.get_role(int(roll_give_roll[roll_message_id_s2-1]))
                 await data.member.add_roles(role)
+                # コンソールにログを表示
+                print(f'<ロール付与>\n付与した人の名前:({data.member.name}),付与した人のID:({data.user_id}),付与したロールのID:({str(roll_give_roll[roll_message_id_s2-1])})\n')
                 # USEROLLがTrueだったら管理者に通知
                 if USEROLL:
                     user=bot.get_user(OWNER)
@@ -234,6 +237,8 @@ async def on_raw_reaction_remove(data):
                 role = guild.get_role(int(roll_give_roll[roll_message_id_s2-1]))
                 member = guild.get_member(data.user_id)
                 await member.remove_roles(role)
+                # コンソールにログを表示
+                print(f'<ロール解除>\n剥奪した人のID:({data.user_id}),付与したロールのID:({str(roll_give_roll[roll_message_id_s2-1])})\n')
                 # USEROLLがTrueだったら管理者に通知
                 if USEROLL:
                     user=bot.get_user(OWNER)
