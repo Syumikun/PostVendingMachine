@@ -3,6 +3,8 @@ Discordでリアクションするとロールを付与するBotを運営でき�
 
 **(現在開発中です。)**
 
+[OfficialWiki](https://github.com/Syumikun/PostVendingMachine/wiki)
+
 ## 環境
 #### Python 3.8.0
 #### Discord.py 1.7.3
