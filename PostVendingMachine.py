@@ -17,7 +17,6 @@ import requests
 from discord_slash import SlashCommand, SlashContext
 
 
-
 #<<<-- 終了 -->>>#
 def end():
     print('\n<<-- 10秒後にシステムを終了します。 -->>')
@@ -40,6 +39,23 @@ ip = socket.gethostbyname(ip)
 if ip == '127.0.0.1':
     print('[Error]インターネットに接続されていません。接続環境を再度ご確認の上再実行してみたください。')
     end()
+
+# -- アップデート確認 -- #
+# 最新バージョン取得
+update_session = requests.Session()
+update_version = update_session.get('https://github.syumikun.ml/pvm/version.json')
+UPDATE_VERSION = json.loads(update_version.text)['version']
+coercion = json.loads(update_version.text)['coercion']
+# バージョンの差を確認
+if VERSION != UPDATE_VERSION:
+    if coercion == 'True':
+        print(f'\n[Info]強制アップデートがあります。\nバージョンを"V{UPDATE_VERSION}"に上げてから再度実行してください。\n又バージョンの上げ方が分からない方は公式Wikiのアップデート編をご覧ください。')
+        end()
+    else:
+        print('[Info]アップデートがあります。')
+        version_ap = True
+else:
+    version_ap = False
 
 # -- 設定ファイルの読み込み  -- #
 # システムファイルがあるか確認
@@ -115,20 +131,6 @@ while roll_number != 0:
 roll_message_id_s = len(roll_message_id)
 print('[Info]設定ファイルの読み込みに成功しました。')
 
-# -- アップデート確認 -- #
-# 最新バージョン取得
-update_session = requests.Session()
-update_version = update_session.get('https://github.syumikun.ml/pvm/version.json')
-UPDATE_VERSION = json.loads(update_version.text)['version']
-coercion = json.loads(update_version.text)['coercion']
-# バージョンの差を確認
-version_ha = False
-if VERSION != UPDATE_VERSION:
-    print('[Info]アップデートがあります。')
-    if VERSIONUP == True or coercion == True:
-        version_ha = True
-
-
 # -- Botの起動  -- #
 print('[Info]DiscordBotを起動します。\n')
 # Discordの変数
@@ -170,34 +172,20 @@ async def on_ready():
         embed.set_footer(text=NAME,icon_url=ICON)
         await user.send(embed=embed)
     # 新しいバージョンがあったら通知
-    if version_ha:
-        # 強制アプデか確認
-        if coercion == True:
-            # 強制アップデートの詳細取得
-            UPDATE_TITLE = json.loads(update_version.text)['news']['title']
-            UPDATE_EXPLANATION = json.loads(update_version.text)['news']['explanation']
-            UPDATE_URL = json.loads(update_version.text)['news']['version_url']
-            user=bot.get_user(OWNER)
-            embed = discord.Embed(title='< 新しいバージョンが出ました >',description=f'このアップデートは強制アップデートです。詳しくは上のタイトルをクリックしてください。', url=UPDATE_URL, color=0XFFFFE0)
-            embed.add_field(name='現在のバージョン',value=f'```{VERSION}```')
-            embed.add_field(name='新しいバージョン',value=f'```{UPDATE_VERSION}```')
-            embed.add_field(name='アップデートのタイトル',value=f'```{UPDATE_TITLE}```')
-            embed.add_field(name='アップデートの詳細',value=f'```{UPDATE_EXPLANATION}```')
-            embed.set_footer(text=NAME,icon_url=ICON)
-            await user.send(embed=embed)
-        else:
-            # アップデートの詳細取得
-            UPDATE_TITLE = json.loads(update_version.text)['news']['title']
-            UPDATE_EXPLANATION = json.loads(update_version.text)['news']['explanation']
-            UPDATE_URL = json.loads(update_version.text)['news']['version_url']
-            user=bot.get_user(OWNER)
-            embed = discord.Embed(title='< 新しいバージョンが出ました >',description=f'上のタイトルをクリックすると詳細ページへと飛びます。', url=UPDATE_URL, color=0XFFFFE0)
-            embed.add_field(name='現在のバージョン',value=f'```{VERSION}```')
-            embed.add_field(name='新しいバージョン',value=f'```{UPDATE_VERSION}```')
-            embed.add_field(name='アップデートのタイトル',value=f'```{UPDATE_TITLE}```')
-            embed.add_field(name='アップデートの詳細',value=f'```{UPDATE_EXPLANATION}```')
-            embed.set_footer(text=NAME,icon_url=ICON)
-            await user.send(embed=embed)
+    if version_ap:
+        # アップデートの詳細取得
+        UPDATE_TITLE = json.loads(update_version.text)['news']['title']
+        UPDATE_EXPLANATION = json.loads(update_version.text)['news']['explanation']
+        UPDATE_URL = json.loads(update_version.text)['news']['version_url']
+        user=bot.get_user(OWNER)
+        embed = discord.Embed(title='< 新しいバージョンが出ました >',description=f'上のタイトルをクリックすると詳細ページへと飛びます。', url=UPDATE_URL, color=0XFFFFE0)
+        embed.add_field(name='現在のバージョン',value=f'```{VERSION}```')
+        embed.add_field(name='新しいバージョン',value=f'```{UPDATE_VERSION}```')
+        embed.add_field(name='アップデートのタイトル',value=f'```{UPDATE_TITLE}```')
+        embed.add_field(name='アップデートの詳細',value=f'```{UPDATE_EXPLANATION}```')
+        embed.set_footer(text=NAME,icon_url=ICON)
+        await user.send(embed=embed)
+# 起動完了通知
 print('\n<< -- BOT起動完了 -- >>\n')
 
 
