@@ -201,13 +201,15 @@ async def on_raw_reaction_add(data):
             if data.emoji.name == roll_stamp[roll_message_id_s2-1]:
                 role = guild.get_role(int(roll_give_roll[roll_message_id_s2-1]))
                 await data.member.add_roles(role)
+                # ユーザー名を取得
+                user_name = bot.get_user(data.user_id)
                 # コンソールにログを表示
-                print(f'<ロール付与>\n付与した人の名前:({data.member.name}),付与した人のID:({data.user_id}),付与したロールのID:({str(roll_give_roll[roll_message_id_s2-1])})\n')
+                print(f'[Info]ロールを付与しました。[Name:({user_name}), ID:({data.user_id}), Roll:({str(roll_give_roll[roll_message_id_s2-1])})]')
                 # USEROLLがTrueだったら管理者に通知
                 if USEROLL:
                     user=bot.get_user(OWNER)
                     embed = discord.Embed(title='< ロールを付与しました >',description=f'ユーザーにロールを付与した事をお知らせします。', color=0X90EE90)
-                    embed.add_field(name='付与した人のName',value=f'```{data.member.name}```')
+                    embed.add_field(name='付与した人のName',value=f'```{user_name}```')
                     embed.add_field(name='付与した人のID',value=f'```{data.user_id}```')
                     embed.add_field(name='付与したロールID',value=f'```{str(roll_give_roll[roll_message_id_s2-1])}```')
                     embed.set_footer(text=NAME,icon_url=ICON)
@@ -225,12 +227,15 @@ async def on_raw_reaction_remove(data):
                 role = guild.get_role(int(roll_give_roll[roll_message_id_s2-1]))
                 member = guild.get_member(data.user_id)
                 await member.remove_roles(role)
+                # ユーザー名を取得
+                user_name = bot.get_user(data.user_id)
                 # コンソールにログを表示
-                print(f'<ロール解除>\n剥奪した人のID:({data.user_id}),付与したロールのID:({str(roll_give_roll[roll_message_id_s2-1])})\n')
+                print(f'[Info]ロールを剥奪しました。[Name:({user_name}), ID:({data.user_id}), Roll:({str(roll_give_roll[roll_message_id_s2-1])})]')
                 # USEROLLがTrueだったら管理者に通知
                 if USEROLL:
                     user=bot.get_user(OWNER)
                     embed = discord.Embed(title='< ロールを解除しました >',description=f'ユーザーのロールを剥奪した事をお知らせします。', color=0XCBC0FF)
+                    embed.add_field(name='剥奪した人のName',value=f'```{user_name}```')
                     embed.add_field(name='剥奪した人のID',value=f'```{data.user_id}```')
                     embed.add_field(name='剥奪したロールID',value=f'```{str(roll_give_roll[roll_message_id_s2-1])}```')
                     embed.set_footer(text=NAME,icon_url=ICON)
